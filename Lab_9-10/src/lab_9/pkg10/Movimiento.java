@@ -97,32 +97,16 @@ public class Movimiento implements Runnable{
         while (true) {
             input = inp.getText();
         if (input.equals("w") ) {
-            culebra.getX().get(0).setX(culebra.getY1());
             culebra.setY1(y - 1);            
             y = culebra.getY1();
-            for (int i = 1; i < culebra.getX().size(); i++) {
-                culebra.getX().get(i).setX(culebra.getX().get(i- 1).getX() - 1);
-            }
         } else if (input.equals("s") ) {
-            culebra.getX().get(0).setX(culebra.getY1());
             culebra.setY1(y + 1);
-            for (int i = 1; i < culebra.getX().size(); i++) {
-                culebra.getX().get(i).setX(culebra.getX().get(i - 1).getX() + 1);
-            }
             y = culebra.getY1();
         } else if (input.equals("a") ) {
-            culebra.getX().get(0).setY(culebra.getX1());
             culebra.setX1(x - 1);
-            for (int i = 1; i < culebra.getX().size(); i++) {
-                culebra.getX().get(i).setY(culebra.getX().get(i - 1).getY() - 1);
-            }
             x = culebra.getX1();
         } else if (input.equals("d") ) {
-            culebra.getX().get(0).setY(culebra.getX1());
             culebra.setX1(x + 1);
-            for (int i = 1; i < culebra.getX().size(); i++) {
-                culebra.getX().get(i).setY(culebra.getX().get(i - 1).getY() + 1);
-            }
             x = culebra.getX1();
         }
             actualizarmapa();
@@ -144,16 +128,18 @@ public class Movimiento implements Runnable{
     public void actualizarmapa() {
         String mapas = "";
         Random r = new Random();
-        System.out.println("X 0 es: " + culebra.getX().get(0).toString());
-        System.out.println("X 1 es: " + culebra.getX().get(1).toString());
+//        System.out.println("X 0 es: " + culebra.getX().get(0).toString());
+//        System.out.println("X 1 es: " + culebra.getX().get(1).toString());
 
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
+                
                 if (culebra.getY1() == x2 && culebra.getX1() == y2) {
                     matriz[x2][y2] = " ";
                     x2 = 1 + r.nextInt(11);
                     y2 = 1 + r.nextInt(31);
                     matriz[x2][y2] = "O";
+                    //X n = new X(culebra.getX().get(culebra.getX().size() - 1).getX() - 1, culebra.getX().get(culebra.getX().size() - 1).getY() - 1 );
                 }
                 if (x2 != i | y2 != j) {
                     if (i == 0 | i == matriz.length - 1) {
@@ -163,14 +149,7 @@ public class Movimiento implements Runnable{
                     } else if (culebra.getY1() == i && culebra.getX1() == j) {
                         matriz[i][j] = culebra.getCabesa();
                     } else {
-                        for (int k = 0; k < culebra.getX().size(); k++) {
-                            if (culebra.getX().get(k).getX() == i && culebra.getX().get(k).getY() == j) {
-                                matriz[i][j] = "X";
-                                System.out.println(matriz[i][j]);
-                            } else {
-                                matriz[i][j] = " ";
-                            }
-                        }
+                        matriz[i][j] = " ";
                     }
                 }
                 mapas += matriz[i][j];

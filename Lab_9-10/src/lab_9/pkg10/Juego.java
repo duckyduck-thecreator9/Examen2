@@ -130,8 +130,8 @@ public class Juego extends javax.swing.JFrame {
         m.getMatriz()[m.getX2()][m.getY2()] = "O";        
         X uno = new X (7,16);
         X dos = new X (7,15);
-        culebra.getX().add(uno);
-        culebra.getX().add(dos);
+        //culebra.getX().add(uno);
+        //culebra.getX().add(dos);
         Thread proceso1 = new Thread(m);
         proceso1.start();  
         m.getMatriz()[7][16] = "X";
