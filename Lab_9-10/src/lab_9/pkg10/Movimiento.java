@@ -19,6 +19,7 @@ public class Movimiento implements Runnable{
     private String[][] matriz;
     private JTextArea map;
     private JTextField inp;
+    private boolean existe = false;
 
     public Movimiento(String input, Culebra culebra, String[][] matriz, JTextArea map, JTextField inp) {
         this.input = input;
@@ -63,20 +64,11 @@ public class Movimiento implements Runnable{
 
     @Override
     public void run() {
-        Random r = new Random();
         int y = culebra.getY1();
         int x = culebra.getX1();
         input.toLowerCase();
-        boolean existe = false;
-        matriz[6][12] = "0";
         while (true) {
             System.out.println(existe);
-            if (existe == false) {
-                int x2 = r.nextInt(13);
-                int y2 = r.nextInt(32);
-                matriz[x2][y2] = "O";
-                existe = true;
-            }
             input = inp.getText();
             System.out.println(input);
         if (input.equals("w") ) {
@@ -106,20 +98,34 @@ public class Movimiento implements Runnable{
     
     public void actualizarmapa() {
         String mapas = "";
+        Random r = new Random();  
+        int x2 = 0;
+        int y2 = 0;
+        boolean existe = false;
+        
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
+                
+                    if (existe == false) {
+                        x2 = r.nextInt(13);
+                        y2 = r.nextInt(32);
+                        matriz[x2][y2] = "O";
+                    }
+                if (x2 != i | y2 != j) {
                 if (i == 0 | i == matriz.length - 1) {
+                    matriz[i][j] = "*";                   
+                } else if (j == 0 | j == 32) {
                     matriz[i][j] = "*";
-                } else if (j == 0 | j == 32 ){
-                 matriz[i][j] = "*";
                 } else if (culebra.getY1() == i && culebra.getX1() == j) {
                     matriz[i][j] = culebra.getCabesa();
-                    //matriz[i][j-1] = "x";
-                    //matriz[i][j-2] = "x";
-                } else {    
-                matriz[i][j] = " ";
+                } else {
+                    matriz[i][j] = " ";
+                }
                 }
                 mapas += matriz[i][j];
+                if (matriz[x2][y2].equals("O") ) {
+                    existe = true;
+            }
             }
             mapas += "\n";
         }
