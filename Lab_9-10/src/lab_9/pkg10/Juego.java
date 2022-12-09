@@ -18,26 +18,7 @@ public class Juego extends javax.swing.JFrame {
      */
     public Juego() {
         initComponents();
-        actualizarmapa();
-    }
-
-    public void actualizarmapa() {
-        String mapas = "";
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                if (i == 0 | i == matriz.length - 1) {
-                    matriz[i][j] = "*";
-                } else if (j == 0 | j == 32 ){
-                    System.out.println(matriz[i].length - 1);
-                 matriz[i][j] = "*";
-                } else {
-                matriz[i][j] = "  ";
-                }
-                mapas += matriz[i][j];
-            }
-            mapas += "\n";
-        }
-        Mapa.setText(mapas);
+        this.setLocationRelativeTo(this);
     }
     
     /**
@@ -64,18 +45,29 @@ public class Juego extends javax.swing.JFrame {
 
         Mapa.setEditable(false);
         Mapa.setColumns(20);
-        Mapa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Mapa.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         Mapa.setRows(5);
         jScrollPane1.setViewportView(Mapa);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Comenzar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setText("Cargar");
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton3.setText("Guardar");
+
+        Movement.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MovementKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,6 +116,22 @@ public class Juego extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void MovementKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MovementKeyPressed
+        // TODO add your handling code here:
+       Movement.setText("");
+    }//GEN-LAST:event_MovementKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Movimiento m=new Movimiento(Movement.getText(),culebra, matriz, Mapa, Movement);
+        Thread proceso1 = new Thread(m);
+        if (proceso1.isAlive()) {
+        proceso1.stop();
+        }
+        proceso1.start();  
+        Movement.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
