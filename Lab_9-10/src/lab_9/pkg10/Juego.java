@@ -125,11 +125,17 @@ public class Juego extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Movimiento m=new Movimiento(Movement.getText(),culebra, matriz, Mapa, Movement);
+        m.setX2(6);
+        m.setY2(26);
+        m.getMatriz()[m.getX2()][m.getY2()] = "O";        
+        X uno = new X (7,16);
+        X dos = new X (7,15);
+        culebra.getX().add(uno);
+        culebra.getX().add(dos);
         Thread proceso1 = new Thread(m);
-        if (proceso1.isAlive()) {
-        proceso1.stop();
-        }
         proceso1.start();  
+        m.getMatriz()[7][16] = "X";
+        m.getMatriz()[7][15] = "X";
         Movement.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -177,7 +183,7 @@ public class Juego extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    ArrayList<String> x = new ArrayList<String>();
+    ArrayList<X> x = new ArrayList<X>();
     Culebra culebra = new Culebra("@", x, 17, 7);
     String[][] matriz = new String[13][33];
 }

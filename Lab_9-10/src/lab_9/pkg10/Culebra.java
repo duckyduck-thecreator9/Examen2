@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Culebra {
     private String cabesa;
-    private ArrayList<String> x;
     private int x1,y1;
+    private ArrayList<X> x = new ArrayList();
 
-    public Culebra(String cabesa, ArrayList<String> x, int x1, int y1) {
+    public Culebra(String cabesa, ArrayList<X> x, int x1, int y1) {
         this.cabesa = cabesa;
         this.x = x;
         this.x1 = x1;
@@ -34,11 +34,11 @@ public class Culebra {
         this.cabesa = cabesa;
     }
 
-    public ArrayList<String> getX() {
+    public ArrayList<X> getX() {
         return x;
     }
 
-    public void setX(ArrayList<String> x) {
+    public void setX(ArrayList<X> x) {
         this.x = x;
     }
 
